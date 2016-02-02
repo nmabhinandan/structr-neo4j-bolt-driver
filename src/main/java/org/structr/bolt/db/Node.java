@@ -23,7 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.neo4j.driver.v1.Pair;
 import org.neo4j.driver.v1.ResultCursor;
 import org.neo4j.graphdb.DynamicLabel;
 import org.structr.bolt.wrapper.TransactionWrapper;
@@ -123,13 +122,19 @@ public class Node implements org.structr.bolt.db.Entity{
         StringBuilder str = new StringBuilder();
         switch(dir){
             case INCOMING:
-                str.append("MATCH (n)<-[r:"+type.name()+"]-() WHERE ");
+                str.append("MATCH (n)<-[r:")
+                   .append(type.name())
+                   .append("]-() WHERE ");
                 break;
             case OUTGOING:
-                str.append("MATCH (n)-[r:"+type.name()+"]->() WHERE ");
+                str.append("MATCH (n)-[r:")
+                   .append(type.name())
+                   .append("]->() WHERE ");
                 break;
             case BOTH:
-                str.append("MATCH (n)-[r:"+type.name()+"]-() WHERE ");
+                str.append("MATCH (n)-[r:")
+                   .append(type.name())
+                   .append("]-() WHERE ");
                 break;
         }
         str.append("id(n)=").append(this.getId()).append(" ")

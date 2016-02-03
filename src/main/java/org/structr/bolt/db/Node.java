@@ -247,6 +247,10 @@ public class Node implements org.structr.bolt.db.Entity{
 
     @Override
     public void delete() {
+        this.getRelationships().forEach(
+                (org.structr.bolt.db.Relationship rel) -> rel.delete()
+        );
+        
         StringBuilder str = new StringBuilder();
         str.append("MATCH (n) WHERE ")
            .append("id(n)=").append(this.getId()).append(" ")
